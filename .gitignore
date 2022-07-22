@@ -1,0 +1,5 @@
+/escrow/.anchor/
+/escrow/node_modules/
+/escrow/target/
+/escrow/programs/escrow/target/
+.idea
