@@ -99,6 +99,16 @@
     (10) msg!
     在合约中通过 msg! 输出链上信息(昂贵的)
     
+    (11) Rent
+    如果Account.lamport == 0, Account会被删除(accounts_db.clean_accounts)
+
+    每次引用Account的时候，都会进行rent状态检查(RentState)
+    当Account.lamport == 0 是 Uninitialized， 交易执行失败
+    当Account.lamports >= rent-exempt-minimum 是 RentExempt, 后续不会扣除lamort
+    当lamport小于rent-exempt-minimum时，后续会扣除lamport
+
+    若想不被删除Account, 只需向这个Account转SOL, 使得lamport大于等于rent-exemption即可
+    
     2. 核心数据结构
     
     (1) Pubkey
@@ -132,70 +142,70 @@
     ```
 
     
-11. BPF virtual machine
+4. BPF virtual machine
 
-    BPF (Berkely packet filter) is most known for its use in the Linux and BSD kernels. The BPF runtime allows safe and predictable execution of arbitrary code at high performance (similar to WebAssembly).
+   BPF (Berkely packet filter) is most known for its use in the Linux and BSD kernels. The BPF runtime allows safe and predictable execution of arbitrary code at high performance (similar to WebAssembly).
 
-    BPF code is verified for correctness and then JIT-compiled to native x86_64 code before execution. The compiled machine code is cached for further executions.
+   BPF code is verified for correctness and then JIT-compiled to native x86_64 code before execution. The compiled machine code is cached for further executions.
 
-    ****最神奇的Linux技术 BPF入门****
+   ****最神奇的Linux技术 BPF入门****
 
-    [https://zhuanlan.zhihu.com/p/469860384](https://zhuanlan.zhihu.com/p/469860384)
+   [https://zhuanlan.zhihu.com/p/469860384](https://zhuanlan.zhihu.com/p/469860384)
 
-12. ****Solana全方位介绍——共识、钱包、生态、合约****
+5. ****Solana全方位介绍——共识、钱包、生态、合约****
 
-    [https://learnblockchain.cn/article/3761](https://learnblockchain.cn/article/3761)
+   [https://learnblockchain.cn/article/3761](https://learnblockchain.cn/article/3761)
 
-13. solana 账户模型
+6. solana 账户模型
 
-    [https://solana.wiki/zh-cn/docs/account-model/](https://solana.wiki/zh-cn/docs/account-model/)
+   [https://solana.wiki/zh-cn/docs/account-model/](https://solana.wiki/zh-cn/docs/account-model/)
 
-14. ****Solana 开发学习笔记(一)——从 Hello World 出发****
+7. ****Solana 开发学习笔记(一)——从 Hello World 出发****
 
-    [https://learnblockchain.cn/article/3155](https://learnblockchain.cn/article/3155)
+   [https://learnblockchain.cn/article/3155](https://learnblockchain.cn/article/3155)
 
-15. ****Solana Program Library(合约实例)****
+8. ****Solana Program Library(合约实例)****
 
-    [https://github.com/solana-labs](https://github.com/solana-labs)
+   [https://github.com/solana-labs](https://github.com/solana-labs)
 
-    [https://spl.solana.com/](https://spl.solana.com/)
+   [https://spl.solana.com/](https://spl.solana.com/)
 
-16. ****Solana 的 Hello world 实例****
+9. ****Solana 的 Hello world 实例****
 
-    [https://github.com/solana-labs/example-helloworld/blob/master/README_ZH_CN.md](https://github.com/solana-labs/example-helloworld/blob/master/README_ZH_CN.md)
+   [https://github.com/solana-labs/example-helloworld/blob/master/README_ZH_CN.md](https://github.com/solana-labs/example-helloworld/blob/master/README_ZH_CN.md)
 
-17. ****Understanding Solana’s Mint Accounts and Token Accounts****
+10. ****Understanding Solana’s Mint Accounts and Token Accounts****
 
     [https://medium.com/@jorge.londono_31005/understanding-solanas-mint-account-and-token-accounts-546c0590e8e](https://medium.com/@jorge.londono_31005/understanding-solanas-mint-account-and-token-accounts-546c0590e8e)
 
-18. Solana 合约开发框架
+11. Solana 合约开发框架
 
     [https://www.anchor-lang.com/](https://www.anchor-lang.com/)
     ****Anchor framework example****
 
     [https://learn.figment.io/tutorials/build-a-blog-dapp-using-anchor](https://learn.figment.io/tutorials/build-a-blog-dapp-using-anchor)
 
-19. ****Solana Programming Primer****
+12. ****Solana Programming Primer****
 
     [https://betterprogramming.pub/solana-programming-primer-1c8aae509346](https://betterprogramming.pub/solana-programming-primer-1c8aae509346)
 
-20. ****Solana 扩容分析：高效率,性能成本,极限尝试****
+13. ****Solana 扩容分析：高效率,性能成本,极限尝试****
 
     [https://mirror.xyz/0x64A156A617C4226665c79F6cC8cCF078A4650E26/KnXXg9N_6Wj8Ct_xv6iXaqFo0OVwQsqTiMwwGRpgxbk](https://mirror.xyz/0x64A156A617C4226665c79F6cC8cCF078A4650E26/KnXXg9N_6Wj8Ct_xv6iXaqFo0OVwQsqTiMwwGRpgxbk)
 
-21. **Starting with Solana, Part 4 - A Todo List with Rewards**
+14. **Starting with Solana, Part 4 - A Todo List with Rewards**
 
     [https://imfeld.dev/writing/starting_with_solana_part04](https://imfeld.dev/writing/starting_with_solana_part04)
 
-22. ****Using PDAs and SPL Token in Anchor****
+15. ****Using PDAs and SPL Token in Anchor****
 
     [https://betterprogramming.pub/using-pdas-and-spl-token-in-anchor-and-solana-df05c57ccd04](https://betterprogramming.pub/using-pdas-and-spl-token-in-anchor-and-solana-df05c57ccd04)
 
-23. ****Write your first Solana program****
+16. ****Write your first Solana program****
 
     [https://buildspace.so/p/build-solana-web3-app/lessons/write-first-solana-program](https://buildspace.so/p/build-solana-web3-app/lessons/write-first-solana-program)
 
-24. ****写给Solidity开发者的Solana入门指南****
+17. ****写给Solidity开发者的Solana入门指南****
 
     [https://learnblockchain.cn/article/4375](https://learnblockchain.cn/article/4375)
 
