@@ -45,15 +45,28 @@
     
     (2) Instruction
     Instruction是智能合约处理的基本单元.由[program_id, accounts, data]组成.
-    整体流程是DApp客户端将自定义的指令数据序列化到instruction_data里面,然后将program_id,相关的AccountMeta列表和instruction_data组装成Instruction,包含到Transactions发送到Solana Leader节点,
-    Solana验证节点构建相应的执行环境,AccountMeta列表被加载为AccountInfo列表,和instruction_data一起传递给合约程序program,合约程序里面将这个instruction_data数据再反序列化,得到客户端传过来的具体参数.
+    整体流程是DApp客户端将自定义的指令数据序列化到instruction_data里面,然后将program_id,
+    相关的AccountMeta列表和instruction_data组装成Instruction,包含到Transactions发送到Solana 
+    Leader节点, Solana验证节点构建相应的执行环境,AccountMeta列表被加载为AccountInfo列表
+    和instruction_data一起传递给合约程序program,合约程序里面将这个instruction_data数据再反序列化,
+    得到客户端传过来的具体参数.
     
     (3) Account
     链上信息存储空间.
-    Solana链上的资源包括了内存、文件、CPU(Compute Budge)等,不同于EOS的内存和CPU,Solana上只是对合约 运行的的栈大小（4KB),CPU执行时间（200,000 BPF）,函数栈深度（64）做了最大数量的约定,所以不会出现 EOS上的抢资源的情况.Solana链上的信息,不同于EOS上的记录在内存,而是记录在文件中,这个文件在Solana上 表现为Account,所以用户所需要支付的就是一个文件存储所需要的花费,是以SOL计价的.这里衍生出一个概念, 如果想要关闭文件的话,那么只要把这个Account的SOL都转走,那么这个Account对应的地址,在链上就没有钱 来买位置了,也就会被删除掉了.
+    Solana链上的资源包括了内存、文件、CPU(Compute Budge)等,不同于EOS的内存和CPU,
+    Solana上只是对合约 运行的的栈大小（4KB),CPU执行时间（200,000 BPF,函数栈深度（64）
+    做了最大数量的约定,所以不会出现 EOS上的抢资源的情况.
+    Solana链上的信息,不同于EOS上的记录在内存,而是记录在文件中,
+    这个文件在Solana上 表现为Account,所以用户所需要支付的就是一个文件存储所需要的花费,
+    是以SOL计价的.这里衍生出一个概念, 如果想要关闭文件的话,那么只要把这个Account的SOL都转走,
+    那么这个Account对应的地址,在链上就没有钱来买位置了,也就会被删除掉了.
     
     (4) Runtime
-    Solana的Runtime是执行BPF字节码的,为什么选择了这个runtime而不是WebAssembly或者Lua、Python 之类呢？其实主要还是因为性能的考量,Solana引以为傲的就是TPS,而BPF的执行效率更快.为了限制一个合约不至于 占光所有资源,runtime对合约的运行做了一些限制,当前的限制可以在SDK中查询
+    Solana的Runtime是执行BPF字节码的,
+    为什么选择了这个runtime而不是WebAssembly或者Lua、Python 之类呢?
+    其实主要还是因为性能的考量,Solana引以为傲的就是TPS,而BPF的执行效率更快.
+    为了限制一个合约不至于 占光所有资源,runtime对合约的运行做了一些限制,
+    当前的限制可以在SDK中查询
     
     (5) PDA
     PDA（program derived addresses, 程序派生地址）是具有特殊属性的地址.
@@ -95,14 +108,17 @@
     AccountInfo就是一个Account在链上的表达形式,可以认为是一个文件的属性
     
     (3) ProgramResult
-    ProgramResult实际上类型为ProgramError的Result对象,而ProgramError是Solana自定义的一个Error的 枚举,也就是Solana抛出来的错误枚举.在合约中,当正常逻辑执行结束后,我们通过Ok()来返回这里Reuslt 正确的结果,如果出错了,则通过这里的Result中的ProgramError错误返回.
+    ProgramResult实际上类型为ProgramError的Result对象,而ProgramError是Solana自定义的一个Error的枚举,
+    也就是Solana抛出来的错误枚举.在合约中,当正常逻辑执行结束后,我们通过Ok()来返回这里Reuslt正确的结果,
+    如果出错了,则通过这里的Result中的ProgramError错误返回.
     
     (4) AccountMeta
-    AccountMeta主要用于Instruction结构的定义,用于协助传递这个指令需要的其他AccountInfo,其中包括了Account的地址,
-    这个Account是否为签名账号,以及这个Account对应的内容（AccountInfo)是否可以修改.
+    AccountMeta主要用于Instruction结构的定义,用于协助传递这个指令需要的其他AccountInfo,
+    其中包括了Account的地址,这个Account是否为签名账号,以及这个Account对应的内容（AccountInfo)是否可以修改.
     
     (5) Instruction
-    一条处理指令,包含了要处理他的程序的地址program_id, 涉及的AccountMeta表示的Account,还有这条指令附带的payload data
+    一条处理指令,包含了要处理他的程序的地址program_id, 涉及的AccountMeta表示的Account,
+    还有这条指令附带的payload data
     
     declare_id 用来指定program_id
     https://learn.figment.io/tutorials/build-a-blog-dapp-using-anchor
