@@ -2,4 +2,10 @@
 /escrow/node_modules/
 /escrow/target/
 /escrow/programs/escrow/target/
+
 .idea
+
+/nft-grab/.anchor/
+/nft-grab/node_modules/
+/nft-grab/target/
+/nft-grab/programs/nft-grab/target/
