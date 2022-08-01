@@ -139,6 +139,16 @@
     (1) 这个Account的修改需要你的私钥签名(表明你同意), 比如你转账SOL
     (2) 在一组Instructions中,相同的Account pubkey在CompiledKeys时被去重, 
     也就是说他们中只要有一个is_signer==true就行了
+    
+    Pubkey.createWithSeed(fromPublicKey,seed,programId) 未做安全性检查, 适合合约只使用Account的场景下
+    Pubkey.findProgramAddress(seeds, programId) 做了安全性检查，确保这个pubkey无私钥，适合合约创建并使用Account场景下
+    他们俩不通用
+    
+    solana 合约如何托管SOL?
+    对于某个Account(owner是你的program), system允许你向它转SOL, 但禁止你从它转出SOL
+    （1）Account的owner是你的program,system_program无法修改这个Account的数据(包括lamport)
+    （2）即便你通过assign将owner暂时替换到system_program, 也可能报 `Transfer: from must not carry data`
+    使用PDA且这个Account没有data,其默认的owner就是system_program
     ```
 
     
