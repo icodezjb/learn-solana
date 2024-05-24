@@ -239,3 +239,55 @@
 解决: 运行anchor keys list,将这个地址复制到Anchor.toml和lib.rs中,部署的时候检查program_id是否一致
 
 ```
+
+26. solana 合约部署gas估算
+https://solana.stackexchange.com/questions/2016/how-can-i-calculate-the-cost-the-deploy-a-progam-to-main-net
+
+27. 本地合约开发环境
+```txt
+1. Install the Solana CLI
+https://docs.solana.com/getstarted/local#install-the-solana-cli
+2. Install the Anchor
+https://www.anchor-lang.com/docs/installation
+
+anchor init
+anchor new
+anchor build
+anchor keys list
+anchor keys sync
+anchor deploy
+
+
+solana-test-validator --ticks-per-slot 256
+solana airdrop 1
+solana address
+solana config get
+solana config set -u localhost
+solana balance
+solana program close --buffers
+
+solana-install init 1.14.19
+solana-install init 1.16.13
+
+solana-keygen public id.json
+solana-keygen new
+solana-keygen recover ASK -o test.json
+solana-keygen recover 'prompt://?key=0/0' -o test.json
+
+
+anchorpy client-gen target/idl/callee.json tests/callee
+anchorpy client-gen target/idl/caller.json tests/caller
+anchorpy client-gen target/idl/hello_token.json tests/hellotoken --program-id "EvTsJYjLKCK1iMX9aExiYEBxdNBGgY8FQ7NFRd2jJNk5"
+
+
+spl-token create-account AwcKdvJMfwYWTGY4TJzX8XgjY8kk97izi7zrxTseWTAT(coin10)
+spl-token accounts
+spl-token address  --token AwcKdvJMfwYWTGY4TJzX8XgjY8kk97izi7zrxTseWTAT -v
+spl-token display H9FHrVoHSA8B1akWr4gvFHSb7MnDtr69kjjnD7BWnNmL
+spl-token display AwcKdvJMfwYWTGY4TJzX8XgjY8kk97izi7zrxTseWTAT
+
+
+solana address-lookup-table create
+solana address-lookup-table extend ESxWFjHVo2oes1eAQiwkAUHNTTUT9Xm5zsSrE7QStYX8 --addresses 8PFZNjn19BBYVHNp4H31bEW7eAmu78Yf2RKV8EeA461K,3VFdJkFuzrcwCwdxhKRETGxrDtUVAipNmYcLvRBDcQeH,H9pUTqZoRyFdaedRezhykA1aTMq7vbqRHYVhpHZK2QbC,rRsXLHe7sBHdyKU3KY3wbcgWvoT1Ntqudf6e9PKusgb,6bi4JGDoRwUs9TYBuvoA7dUVyikTJDrJsJU1ew6KVLiu,4yttKWzRoNYS2HekxDfcZYmfQqnVWpKiJ8eydYRuFRgs,7s3a1ycs16d6SNDumaRtjcoyMaTDZPavzgsmS3uUZYWX,9QzqZZvhxoHzXbNY9y2hyAUfJUzDwyDb7fbDs9RXwH3
+solana address-lookup-table get ESxWFjHVo2oes1eAQiwkAUHNTTUT9Xm5zsSrE7QStYX8
+```
